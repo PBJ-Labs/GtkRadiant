@@ -3781,6 +3781,11 @@ qboolean IsBrushSelected( brush_t* bSel ){
 	return false;
 }
 
-brush_t* BrushUsing_CustomShader(){
-
-};
+brush_t* BrushUsing_CustomShader(brush_t* b, RadiantBuiltinShaders* pShader){
+	  /*make sure brush is sel first, then plugin shader version is true*/
+      if( IsBrushSelected( b ) == true && SHADER_VERSION){
+		  for(; b; b++ ){
+			  b = Alloc_Brush(); /*allocate brush*/
+		  }
+	  }
+}
