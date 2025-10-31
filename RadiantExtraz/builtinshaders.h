@@ -42,4 +42,6 @@ public:
 
 };
 
+brush_t* BrushUsing_CustomShader(brush_t* b, RadiantBuiltinShaders* pShader);
+
 #endif
