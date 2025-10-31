@@ -19,6 +19,9 @@ public:
 
    float ShaderScale[3]; //should use vec3_t
 
+   unsigned int w;
+   unsigned int h;
+
 };
 
 class RadiantPluginShaderTable{
