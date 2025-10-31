@@ -3786,6 +3786,9 @@ brush_t* BrushUsing_CustomShader(brush_t* b, RadiantBuiltinShaders* pShader){
       if( IsBrushSelected( b ) == true && SHADER_VERSION){
 		  for(; b; b++ ){
 			  b = Alloc_Brush(); /*allocate brush*/
+			  *b->brush_faces;/*get brush faces*/
+			  b->d_texture->name == pShader->Shader = "builtcaulk.png";
 		  }
 	  }
+	return b;
 }
