@@ -19,7 +19,9 @@
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "stdafx.h"
+/*stdafx.h is in this header file*/
+#include "RadiantExtraz/builtinshaders.h"
+/*--------------------------------------*/
 #include <assert.h>
 #include <glib/gi18n.h>
 #include "winding.h"
@@ -3778,3 +3780,7 @@ qboolean IsBrushSelected( brush_t* bSel ){
 	}
 	return false;
 }
+
+brush_t* BrushUsing_CustomShader(){
+
+};
