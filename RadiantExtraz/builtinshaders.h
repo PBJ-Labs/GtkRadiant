@@ -9,7 +9,23 @@ public:
    RadiantBuiltinShaders();
    ~RadiantBuiltinShaders();
 
+   /*each builtin shader has their own id*/
+   int ShaderNumberId;
 
+   bool bShaderTransparent;
+   bool bShaderSelected;
+
+   float ShaderScale[3]; //should use vec3_t
+
+};
+
+class RadiantPluginShaderTable{
+public:
+   RadiantPluginShaderTable();
+   ~RadiantPluginShaderTable();
+
+   /*counts when shader is added to a list*/
+   int ShaderCount;
 
 };
 
