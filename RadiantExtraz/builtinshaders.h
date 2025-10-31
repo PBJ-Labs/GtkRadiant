@@ -4,4 +4,13 @@
 
 #define SHADER_VERSION "0.0.1"
 
+class RadiantBuiltinShaders {
+public:
+   RadiantBuiltinShaders();
+   ~RadiantBuiltinShaders();
+
+
+
+};
+
 #endif
