@@ -15,6 +15,8 @@ public:
    bool bShaderTransparent;
    bool bShaderSelected;
 
+   const char* Shader;
+
    float ShaderScale[3]; //should use vec3_t
 
 };
@@ -26,6 +28,12 @@ public:
 
    /*counts when shader is added to a list*/
    int ShaderCount;
+
+   bool bShaderAdded;
+
+   const char* ShaderNameAdded(RadiantBultinShaders* pShader){
+      return pShader->Shader;
+   }
 
 };
 
