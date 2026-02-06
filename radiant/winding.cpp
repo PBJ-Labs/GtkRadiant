@@ -25,40 +25,40 @@
 #include <assert.h>
 #include "winding.h"
 
-#define BOGUS_RANGE ( g_MaxWorldCoord + 1 )
+// ? bougus_range ??
+#define BOGUS_RANGE ( g_MaxWorldCoord + 1 ) 
 
-/*
-   =============
-   Plane_Equal
-   =============
- */
 #define NORMAL_EPSILON  0.0001
 #define DIST_EPSILON    0.02
 
+/*
+   =============
+    Plane_Equal
+   =============
+ */
 int Plane_Equal( plane_t *a, plane_t *b, int flip ){
-	vec3_t normal;
-	float dist;
+	vec3_t normal; // plane normal
+	float dist; // plane dist
 
+	// if flipped, make normals negative on the second plane, and dist negative on the second plane
 	if ( flip ) {
 		normal[0] = -b->normal[0];
 		normal[1] = -b->normal[1];
 		normal[2] = -b->normal[2];
 		dist = -b->dist;
 	}
+		// if ( if no flip ) then normals are positive, dist on both planes
 	else {
 		normal[0] = b->normal[0];
 		normal[1] = b->normal[1];
 		normal[2] = b->normal[2];
 		dist = b->dist;
 	}
-	if (
-		fabs( a->normal[0] - normal[0] ) < NORMAL_EPSILON
-		&& fabs( a->normal[1] - normal[1] ) < NORMAL_EPSILON
-		&& fabs( a->normal[2] - normal[2] ) < NORMAL_EPSILON
-		&& fabs( a->dist - dist ) < DIST_EPSILON ) {
-		return true;
+	// if plane( a ) is normal then ( - ) normal[]
+	if ( fabs( a->normal[0] - normal[0] ) < NORMAL_EPSILON && fabs( a->normal[1] - normal[1] ) < NORMAL_EPSILON && fabs( a->normal[2] - normal[2] ) < NORMAL_EPSILON && fabs( a->dist - dist ) < DIST_EPSILON ) {
+		return true; // return true
 	}
-	return false;
+	return false; // else return false
 }
 
 /*
@@ -67,9 +67,11 @@ int Plane_Equal( plane_t *a, plane_t *b, int flip ){
    ============
  */
 int Plane_FromPoints( vec3_t p1, vec3_t p2, vec3_t p3, plane_t *plane ){
-	vec3_t v1, v2;
-
+	vec3_t v1, v2; // vectors 
+	
+	// ( - ) vector p2 and p1 from v1
 	VectorSubtract( p2, p1, v1 );
+	// ( - ) vector p3 and p1 from v2
 	VectorSubtract( p3, p1, v2 );
 	//CrossProduct(v2, v1, plane->normal);
 	CrossProduct( v1, v2, plane->normal );
