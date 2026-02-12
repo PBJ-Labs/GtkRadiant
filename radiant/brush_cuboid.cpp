@@ -37,7 +37,7 @@ void BrushCuboid::CreateBrushCuboid(brush_t* p_brush, winding_t* p_winding, int 
       for( auto[&f]: p_facecount; f <= 6; f++ ){
          m_mins[f][0] = m_brush->mins[f][0]; m_maxs[f][0] = m_brush->maxs[f][0]; m_mins[f][1] = m_brush->mins[f][1];
          m_maxs[f][1] = m_brush->maxs[f][1]; m_mins[f][2] = m_brush->mins[f][2]; m_maxs[f][2] = m_brush->maxs[f][2];
-         m_windings = p_winding->points[f] = m_mins[f], m_maxs[f];
+         m_windings = p_winding->points[f] = m_mins[f], m_maxs[f] + 2.0f;
       }   
 }
 
