@@ -19,9 +19,6 @@
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/*stdafx.h is in this header file*/
-#include "RadiantExtraz/builtinshaders.h"
-/*--------------------------------------*/
 #include <assert.h>
 #include <glib/gi18n.h>
 #include "winding.h"
@@ -30,21 +27,38 @@
 
 extern MainFrame* g_pParentWnd;
 
-// globals
 
-int g_nBrushId = 0;
+
+auto g_nBrushId = 0;
+
+
 
 #ifdef ENABLE_GROUPS
-const char* Brush_Name( brush_t *b ){
-	static char cBuff[1024];
-	b->numberId = g_nBrushId++;
-	if ( g_qeglobals.m_bBrushPrimitMode ) {
-		sprintf( cBuff, "Brush %i", b->numberId );
-		Brush_SetEpair( b, "Name", cBuff );
+const std::string* Brush_Name( brush_t *b ){
+	brush_t* m_brush = nullptr;
+    *m_brush = b;
+	static std::string* cBuff[1024];
+	m_brush->numberId = g_nBrushId++;
+	if ( g_qeglobals.m_bBrushPrimitMode != false ) {
+		sprintf( cBuff, "Brush %i", m_brush->numberId );
+		Brush_SetEpair( m_brush, "Name", cBuff );
 	}
-	return cBuff;
+	return ( *cBuff );
 }
+
 #endif
+
+const bool BrushString_Assert( const std::string* p_str ){
+	brush_t* m_brush = nullptr;
+
+	for( auto brush_t * p_brush : m_brush ){
+		if( p_str == Brush_Name( *p_brush ) && !Brush_Name( *p_brush ) ){
+		    delete (*this(*p_brush));
+		   return true;
+	    }
+	}
+	return false;
+}
 
 brush_t *Brush_Alloc(){
 	brush_t *b = (brush_t*)qmalloc( sizeof( brush_t ) );
@@ -56,21 +70,21 @@ brush_t *Brush_Alloc(){
    free(b);
    }
  */
-void PrintWinding( winding_t *w ){
+const void PrintWinding( winding_t *w ){
 	int i;
 
 	Sys_Printf( "-------------\n" );
-	for ( i = 0 ; i < w->numpoints ; i++ )
+	for ( auto n : i; n; n > w->numpoints; n++ )
 		Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n", w->points[i][0]
 					, w->points[i][1], w->points[i][2] );
 }
 
-void PrintPlane( plane_t *p ){
+const void PrintPlane( plane_t *p ){
 	Sys_Printf( "(%5.2f, %5.2f, %5.2f) : %5.2f\n",  p->normal[0],  p->normal[1],
 				p->normal[2],  p->dist );
 }
 
-void PrintVector( vec3_t v ){
+const void PrintVector( vec3_t v ){
 	Sys_Printf( "(%5.2f, %5.2f, %5.2f)\n",  v[0],  v[1], v[2] );
 }
 
@@ -89,7 +103,7 @@ void PrintVector( vec3_t v ){
    textureAxisFromPlane
    ==================
  */
-vec3_t baseaxis[18] =
+std::vector<vec3_t> baseaxis[18] =
 {
 	{0,0,1}, {1,0,0}, {0,-1,0},     // floor
 	{0,0,-1}, {1,0,0}, {0,-1,0},    // ceiling
@@ -3726,49 +3740,6 @@ void aabb_draw( const aabb_t *aabb, int mode ){
 	qglVertex3fv( points[4] );
 
 	qglEnd();
-
-/*
-
-
-   vec3_t Coords[8];
-
-    vec3_t vMin, vMax;
-   VectorSubtract(aabb->origin, aabb->extents, vMin);
-   VectorAdd(aabb->origin, aabb->extents, vMax);
-   VectorSet(Coords[0], vMin[0], vMax[1], vMax[2]);
-   VectorSet(Coords[1], vMax[0], vMax[1], vMax[2]);
-   VectorSet(Coords[2], vMax[0], vMin[1], vMax[2]);
-   VectorSet(Coords[3], vMin[0], vMin[1], vMax[2]);
-   VectorSet(Coords[4], vMin[0], vMax[1], vMin[2]);
-   VectorSet(Coords[5], vMax[0], vMax[1], vMin[2]);
-   VectorSet(Coords[6], vMax[0], vMin[1], vMin[2]);
-   VectorSet(Coords[7], vMin[0], vMin[1], vMin[2]);
-
-    vec3_t Normals[8] = { {-1, 0, 0 },
-                                            { 0, 0, 0 },
-                                            { 0, 0, 0 },
-                                            { 0, 0, 1 },
-                                            { 0, 0,-1 },
-                                            { 0, 1, 0 },
-                                            { 1, 0, 0 },
-                                            { 0,-1, 0 } };
-
-    unsigned short Indices[24] = { 2, 1, 5, 6,
-                                                                 1, 0, 4, 5,
-                                                                 0, 1, 2, 3,
-                                                                 3, 7, 4, 0,
-                                                                 3, 2, 6, 7,
-                                                                 7, 6, 5, 4 };
-
-   qglVertexPointer(3, GL_FLOAT, 0, Coords);         // filling the arrays
-   qglNormalPointer(GL_FLOAT, 0, Normals);
-
-   //glLockArraysEXT(0, count);                // extension GL_EXT_compiled_vertex_array
-
-   qglDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, Indices);
-
-   //glUnlockArraysEXT;                        // extension GL_EXT_compiled_vertex_array
- */
 }
 
 qboolean IsBrushSelected( brush_t* bSel ){
@@ -3779,16 +3750,4 @@ qboolean IsBrushSelected( brush_t* bSel ){
 		}
 	}
 	return false;
-}
-
-brush_t* BrushUsing_CustomShader(brush_t* b, RadiantBuiltinShaders* pShader){
-	  /*make sure brush is sel first, then plugin shader version is true*/
-      if( IsBrushSelected( b ) == true && SHADER_VERSION){
-		  for(; b; b++ ){
-			  b = Alloc_Brush(); /*allocate brush*/
-			  *b->brush_faces;/*get brush faces*/
-			  b->d_texture->name == pShader->Shader = "builtcaulk.png";
-		  }
-	  }
-	return b;
 }
