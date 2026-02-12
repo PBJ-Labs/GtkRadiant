@@ -24,7 +24,7 @@
 // compute a determinant using Sarrus rule
 //++timo "inline" this with a macro
 // NOTE : the three vec3_t are understood as columns of the matrix
-vec_t SarrusDet( vec3_t a, vec3_t b, vec3_t c ){
+constexpr vec_t SarrusDet( vec3_t a, vec3_t b, vec3_t c ){
 	return a[0] * b[1] * c[2] + b[0] * c[1] * a[2] + c[0] * a[1] * b[2]
 		   - c[0] * b[1] * a[2] - a[1] * b[0] * c[2] - a[0] * b[2] * c[1];
 }
