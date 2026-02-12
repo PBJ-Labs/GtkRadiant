@@ -31,5 +31,13 @@ BrushCuboid::~BrushCuboid()
 
 void BrushCuboid::CreateBrushCuboid(brush_t* p_brush, winding_t* p_winding, int p_facecount, const std::string& shader) override {
    brush_t* m_brush = reinterpret_cast<(brush_t*)>( *p_brush );
+   *p_winding = ( *m_brush->winding );
+   vec3_t m_mins = (*this)->cube_mins;
+   vec3_t m_maxs = (*this)->cube_maxs;
+      for( auto[&f]: p_facecount; f <= 6; f++ ){
+         m_mins[f][0] = m_brush->mins[f][0]; m_maxs[f][0] = m_brush->maxs[f][0]; m_mins[f][1] = m_brush->mins[f][1];
+         m_maxs[f][1] = m_brush->maxs[f][1]; m_mins[f][2] = m_brush->mins[f][2]; m_maxs[f][2] = m_brush->maxs[f][2];
+         m_windings = p_winding->points[f] = m_mins[f], m_maxs[f];
+      }   
 }
 
