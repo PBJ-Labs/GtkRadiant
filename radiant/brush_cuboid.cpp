@@ -29,3 +29,6 @@ BrushCuboid::~BrushCuboid()
 {
 }
 
+void BrushCuboid::CreateBrushCuboid(brush_t* p_brush, winding_t* p_winding, int p_facecount, const std::string& shader) override{
+}
+
