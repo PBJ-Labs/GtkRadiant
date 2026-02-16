@@ -26,6 +26,9 @@ namespace sender {
 
  class PanelComponent 
  {
+
+  std::unique_ptr<PanelComponent> panel = std::make_unique<PanelCompent>();
+
   public:
     PanelComponent();
     virtual ~PanelComponent() = default;
@@ -61,8 +64,7 @@ namespace sender {
     }
 
     virtual void* updatePanel() {
-       static std::string pBuff = *this->panelBuf;
-       
+       static std::string pBuff = *this->panelBuf; 
     }
 
  protected:
