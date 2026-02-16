@@ -49,7 +49,7 @@ public:
   virtual void senderObjectToClipboard(void* OBJ) = 0;
   virtual void deleteObjectFromClipboard(void* OBJ) = 0;
 
-  virtual void setClipboardName(const std::string& name) override {
+  virtual void setClipboardName(const std::string& name) {
      m_ClipboardName = name;
   }
 
@@ -57,23 +57,23 @@ public:
      return m_ClipboardName;
   }
 
-  const int& getBoardCount() const{
-     return m_ClipboardItemCount;
+  int getBoardCount() const{
+    return m_ClipboardItemCount;
   }
 
 
-  virtual void decrementCount() override {
+  virtual void decrementCount() {
      m_ClipboardItemCount--;
   }
 
-  virtual void incrementCount() override {
+  virtual void incrementCount() {
      m_ClipboardItemCount++;
   }
 
 
 protected:
  std::string m_ClipboardName = "DEF_NAME";
- extern int m_ClipboardItemCount = 0;
+ static int m_ClipboardItemCount = 0;
  
 
 };
