@@ -34,6 +34,9 @@ public:
   // create layer
   virtual void createMapLayer(const Layer& layer, const std::string& name) = 0;
 
+  // dialog
+  virtual void doLayerDialog(const std::string& title, const std::string& text) = 0;
+
 protected:
 std::string layerName = "LAYER-NAME";
 static int layersInMap;
