@@ -22,41 +22,40 @@
 #ifndef CLIPBOARD_H
 #define CLIPBOARD_H
 
-auto constexpr CLIPBOARD_BRUSH;
-auto constexpr CLIPBOARD_ENTITY;
-auto constexpr CLIPBOARD_MODEL;
-auto constexpr CLIPBOARD_TEXTURE;
-auto constexpr CLIPBOARD_GRID;
-auto constexpr CLIPBOARD_WINDOW;
-auto constexpr CLIPBOARD_CAULK;
+auto constexpr CLIPBOARD_BRUSH = 0;
+auto constexpr CLIPBOARD_ENTITY = 1;
+auto constexpr CLIPBOARD_MODEL = 2;
+auto constexpr CLIPBOARD_TEXTURE = 3;
+auto constexpr CLIPBOARD_GRID = 4;
+auto constexpr CLIPBOARD_WINDOW = 5;
+auto constexpr CLIPBOARD_CAULK = 6;
 
 class Clipboard {
 public:
   Clipboard();
-  virtual ~Clipboard() = delete;
-
-  const char* m_ClipboardName = "CLIPBOARD";
+  virtual ~Clipboard() = default;
 
   //*getClipboard, returns a clipboard
-  Clipboard& getClipboard(const Clipboard& pClipboard){
-     const Clipboard& m_clipboard = (&pClipboard);
-     if(!m_clipboard){
-        delete ( &this );
-     }
-     return m_clipboard;
+  const Clipboard& getClipboard(const Clipboard& pClipboard){
+     return pClipboard;
   }
 
-  const char* getClipboardName(const Clipboard& pClipboard) {
-     Clipboard* m_Clipboard = reinterpret_cast<Clipboard*>(&pClipboard);
-     return m_Clipboard->m_ClipboardName;
-  }
 
   // needs to returns so make (*)
   virtual void * createClipboard(auto pType) = 0;
   virtual void senderObjectToClipboard(const Clipboard& pBoard, void* OBJ) = 0;
   virtual void deleteObjectFromClipboard(const Clipboard& pBoard, void * OBJ) = 0;
 
-  const char* setClipboardName(const Clipboard& pBoard, const char* pName);
+  virtual void setClipboardName(const Clipboard& pBoard, const char* pName) = 0;
+
+  const std::string& getBoardName() const{
+     return m_ClipboardName;
+  }
+
+
+protected:
+ std::string m_ClipboardName = "DEF_NAME";
+ 
 
 };
 
