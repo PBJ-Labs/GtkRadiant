@@ -27,7 +27,7 @@ namespace sender {
  class PanelComponent 
  {
 
-  std::unique_ptr<PanelComponent> panel = std::make_unique<PanelCompent>();
+  std::unique_ptr<PanelComponent> panel = std::make_unique<PanelComponent>();
 
   public:
     PanelComponent();
