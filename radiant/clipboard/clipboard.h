@@ -39,16 +39,24 @@ public:
 
   //*getClipboard, returns a clipboard
   Clipboard& getClipboard(const Clipboard& pClipboard){
-     Clipboard& m_clipboard = (&pClipboard);
+     const Clipboard& m_clipboard = (&pClipboard);
      if(!m_clipboard){
         delete ( &this );
      }
      return m_clipboard;
   }
 
+  const char* getClipboardName(const Clipboard& pClipboard) {
+     Clipboard* m_Clipboard = reinterpret_cast<Clipboard*>(&pClipboard);
+     return m_Clipboard->m_ClipboardName;
+  }
+
   // needs to returns so make (*)
   virtual void * createClipboard(auto pType) = 0;
   virtual void senderObjectToClipboard(const Clipboard& pBoard, void* OBJ) = 0;
+  virtual void deleteObjectFromClipboard(const Clipboard& pBoard, void * OBJ) = 0;
+
+  const char* setClipboardName(const Clipboard& pBoard, const char* pName);
 
 };
 
