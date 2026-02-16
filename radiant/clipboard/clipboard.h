@@ -36,8 +36,8 @@ public:
   virtual ~Clipboard() = default;
 
   //*getClipboard, returns a clipboard
-  const Clipboard& getClipboard(const Clipboard& pClipboard){
-     return pClipboard;
+  const Clipboard& getClipboard() const{
+     return *this;
   }
 
 
