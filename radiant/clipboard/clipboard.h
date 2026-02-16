@@ -73,8 +73,7 @@ public:
 
 protected:
  std::string m_ClipboardName = "DEF_NAME";
- static int m_ClipboardItemCount = 0;
- 
+ static int m_ClipboardItemCount;
 
 };
 
