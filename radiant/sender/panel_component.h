@@ -44,8 +44,8 @@ namespace sender {
       return panelBuf;
     }
 
-    const PanelComponent& releasePanel() const {
-      delete *[]this;
+    PanelComponent& releasePanel() const {
+      delete this;
     }
 
     virtual void decrementCounter() {
@@ -58,6 +58,11 @@ namespace sender {
 
     PanelComponent& constructPanel() const {
       return new PanelComponent;
+    }
+
+    virtual void* updatePanel() {
+       static std::string pBuff = *this->panelBuf;
+       
     }
 
  protected:
