@@ -16,5 +16,40 @@
 
    You should have received a copy of the GNU General Public License
    along with GtkRadiant; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  
+*/
+
+#ifndef CLIPBOARD_H
+#define CLIPBOARD_H
+
+auto constexpr CLIPBOARD_BRUSH;
+auto constexpr CLIPBOARD_ENTITY;
+auto constexpr CLIPBOARD_MODEL;
+auto constexpr CLIPBOARD_TEXTURE;
+auto constexpr CLIPBOARD_GRID;
+auto constexpr CLIPBOARD_WINDOW;
+auto constexpr CLIPBOARD_CAULK;
+
+class Clipboard {
+public:
+  Clipboard();
+  virtual ~Clipboard() = delete;
+
+  const char* m_ClipboardName = "CLIPBOARD";
+
+  //*getClipboard, returns a clipboard
+  Clipboard& getClipboard(const Clipboard& pClipboard){
+     Clipboard& m_clipboard = (&pClipboard);
+     if(!m_clipboard){
+        delete ( &this );
+     }
+     return m_clipboard;
+  }
+
+  // needs to returns so make (*)
+  virtual void * createClipboard(auto pType) = 0;
+  virtual void senderObjectToClipboard(const Clipboard& pBoard, void* OBJ) = 0;
+
+};
+
+#endif
