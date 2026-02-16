@@ -53,6 +53,8 @@ public:
     ++caulkedBrushes;
   }
 
+ virtual void createBrushCaulked() = 0;
+
 protected:
 std::string caulkToolName = "CAULK-TOOL";
 std::string caulkName = "Caulk.png";
