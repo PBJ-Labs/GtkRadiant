@@ -22,14 +22,17 @@
 #ifndef CLIPBOARD_H
 #define CLIPBOARD_H
 
-auto constexpr CLIPBOARD_BRUSH = 0;
-auto constexpr CLIPBOARD_ENTITY = 1;
-auto constexpr CLIPBOARD_MODEL = 2;
-auto constexpr CLIPBOARD_TEXTURE = 3;
-auto constexpr CLIPBOARD_GRID = 4;
-auto constexpr CLIPBOARD_WINDOW = 5;
-auto constexpr CLIPBOARD_CAULK = 6;
-
+enum class ClipBoardType
+{
+  BrushBoard,
+  EntityBoard,
+  ModelBoard,
+  NodeBoard,
+  TextureBoard,
+  WindowBoard,
+  CaulkBoard,
+  GridBoard
+}
 class Clipboard {
 public:
   Clipboard();
@@ -40,13 +43,12 @@ public:
      return *this;
   }
 
-
   // needs to returns so make (*)
-  virtual void * createClipboard(auto pType) = 0;
+  virtual void * createClipboard(int& TYPE) = 0;
   virtual void senderObjectToClipboard(const Clipboard& pBoard, void* OBJ) = 0;
   virtual void deleteObjectFromClipboard(const Clipboard& pBoard, void * OBJ) = 0;
 
-  virtual void setClipboardName(const Clipboard& pBoard, const char* pName) = 0;
+  virtual void setClipboardName(const std::string& name) = 0;
 
   const std::string& getBoardName() const{
      return m_ClipboardName;
