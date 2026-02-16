@@ -56,8 +56,8 @@ namespace sender {
       componentCounter++;
     }
 
-    const PanelComponent& allocatePanel() const {
-      *this = new PanelComponent;
+    PanelComponent& constructPanel() const {
+      return new PanelComponent;
     }
 
  protected:
