@@ -25,11 +25,10 @@
 #include <limits.h>
 #include "filters.h"
 
+#pragma ptr_no_dangle
+
 extern MainFrame* g_pParentWnd;
-
-
-
-auto g_nBrushId = 0;
+auto g_nBrushId = 0; /*brush id*/
 
 
 
@@ -61,7 +60,7 @@ const bool BrushString_Assert( const std::string* p_str ){
 }
 
 brush_t *Brush_Alloc(){
-	brush_t *b = (brush_t*)qmalloc( sizeof( brush_t ) );
+	brush_t *b = (brush_t*)train_alloc( sizeof( brush_t ) );
 	return b;
 }
 /*
