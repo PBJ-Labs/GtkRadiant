@@ -33,16 +33,16 @@ default_int( g_nBrushId )= 0; /*brush id*/
 
 
 #ifdef ENABLE_GROUPS
-const std::string* Brush_Name( brush_t *b ){
+DPCCHAR* Brush_Name( brush_t *b ){
 	brush_t* m_brush = nullptr;
     *m_brush = b;
-	static std::vector<std::string*> cBuff[1024];
+	static DPCHAR __(DELETE_PTR) cBuff[1024];
 	m_brush->numberId = g_nBrushId++;
 	if ( g_qeglobals.m_bBrushPrimitMode != false ) {
-		sprintf( cBuff, "Brush %i", m_brush->numberId );
-		Brush_SetEpair( m_brush, "Name", cBuff );
+		sprintf( cBuff, _("Brush %i"), m_brush->numberId );
+		Brush_SetEpair( m_brush, _("Name"), cBuff );
 	}
-	return ( *cBuff );
+	return default();
 }
 
 #endif
