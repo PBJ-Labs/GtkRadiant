@@ -28,7 +28,7 @@
 #pragma ptr_no_dangle
 
 extern MainFrame* g_pParentWnd;
-auto g_nBrushId = 0; /*brush id*/
+default_int g_nBrushId = 0; /*brush id*/
 
 
 
